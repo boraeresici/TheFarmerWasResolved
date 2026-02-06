@@ -1,0 +1,14 @@
+@item_tooltip_template_amount = Sahip olduğunuz: {0}
+@item_descr_carrot = Havuç hasat ederek elde edilir.
+@item_descr_fertilizer = `use_item(Items.Fertilizer)` çağırarak bitkinin kalan büyüme süresinden anında 2 saniye düşürün.
+@item_descr_weird_substance = Bir çalı üzerinde `use_item(Items.Weird_Substance)` çağırarak labirent oluşturun ya da diğer bitkilerde enfeksiyon durumunu değiştirin. Enfekte bitkilerden elde edilir. Bitkileri gübrelemek onları enfekte eder.
+@item_descr_gold = Labirentlerdeki hazine sandıklarında bulunur.
+@item_descr_hay = Çim biçerek elde edilir.
+@item_descr_piggy = Bu öğe oyundan kaldırıldı.
+@item_descr_power = Ayçiçeği hasat ederek elde edilir. Drone bunu otomatik olarak iki kat hızlı hareket etmek için kullanır.
+@item_descr_pumpkin = Kabak hasat ederek elde edilir.
+@item_descr_water = `use_item(Items.Water)` çağırarak zemini sulamak için kullanılır.
+@item_descr_wood = Çalılardan ve ağaçlardan elde edilir.
+@item_descr_cactus = Sıralı kaktüsler hasat edilerek elde edilir.
+@item_descr_cactus_seed = Bu öğe oyundan kaldırıldı.
+@item_descr_bone = Kadim bir yaratığın kemikleri.

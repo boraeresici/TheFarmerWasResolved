@@ -1,0 +1,156 @@
+@unlock_tooltip_template_cost = ### Kilit Açma Maliyeti {{{{itemblock cost unlock {0}}}}}
+@unlock_descr_trees = Ağaçları açar.
+
+`plant(Entities.Trees)`
+@unlock_descr_speed = Drone ve kod çalıştırma hızını artırır.
+@unlock_descr_plant = Ekimi açar.
+
+`plant(Entities.Bush)`
+@unlock_descr_loops = Basit bir while döngüsünü açar.
+
+`while True:
+    harvest()`
+@unlock_descr_hats = Drone'unuz için şapkalar.
+
+`change_hat(Hats.Green_Hat)`
+@unlock_descr_the_farmers_remains = ????????
+@unlock_descr_top_hat = Yalnızca en iyi drone'ların takabildiği çok şık bir şapka.
+@unlock_descr_senses = Drone altındaki şeyi ve nerede olduğunu görebilir.
+
+`if get_pos_x() < 5 and num_items(Items.Wood) < 200:
+    plant(Entities.Bush)`
+@unlock_descr_expand = Çiftlik arazisini genişletir ve hareketi açar.
+@unlock_descr_operators = Aritmetik, karşılaştırma ve mantık operatörleri.
+
+`if not can_harvest() and (1 + 1 == 4 / 2):
+    do_a_flip()`
+@unlock_descr_pumpkin = Kabaklar!
+
+`plant(Entities.Pumpkin)`
+@unlock_descr_variables = Değişkenlere değer atamayı açar.
+
+`next_plant = Entities.Bush
+plant(next_plant)`
+@unlock_descr_functions = Kendi fonksiyonlarınızı tanımlayın.
+
+`def do_two_flips():
+    do_a_flip()
+    do_a_flip()
+
+do_two_flips()`
+@unlock_descr_watering = Bitkileri daha hızlı büyütmek için sulayın.
+
+`use_item(Items.Water)`
+@unlock_descr_carrots = Toprağı sürün ve havuç ekin.
+
+`till()
+plant(Entities.Carrot)`
+@unlock_descr_lists = Çok sayıda değer saklamak için listeleri kullanın.
+
+`plants = [Entities.Grass, Entities.Bush, Entities.Tree]
+
+for p in plants:
+    plant(p)
+    move(North)`
+@unlock_descr_costs = Bir şeyin maliyetine erişmeyi sağlar.
+
+`cost = get_cost(Entities.Carrot)
+for item in cost:
+	amount_needed = cost[item]`
+@unlock_descr_fertilizer = Bitkileri anında büyütün.
+
+`use_item(Items.Fertilizer)`
+@unlock_descr_mazes = Ortasında hazine olan bir labirent.
+
+`if get_entity_type() == Entities.Treasure:
+    harvest()`
+@unlock_descr_debug = Programları hata ayıklamaya yardımcı araçlar.
+
+`print("hi")`
+@unlock_descr_debug2 = Çalıştırmayı geçici olarak yavaşlatan ve çiftliği küçülten fonksiyonlar.
+
+`set_world_size(3)
+set_execution_speed(1)`
+@unlock_descr_grass = Çim verimini artırır.
+@unlock_descr_auto_unlock = Şeyleri otomatik olarak açar.
+
+`unlock(Unlocks.Megafarm)`
+@unlock_descr_polyculture = Eşlikçi ekimi kullanarak verimi artırın.
+
+`plant_type, (x, y) = get_companion()`
+@unlock_descr_sunflowers = Ayçiçekleri ve güç.
+
+`plant(Entities.Sunflowers)`
+@unlock_descr_leaderboard = En hızlı süreler için lider tablosuna girin.
+
+`leaderboard_run(Leaderboards.Hay, "hay_file", speedup)`
+@unlock_descr_dicts = Sözlükler ve kümelere erişim sağlar.
+
+`right_of = {North:East, East:South, South:West, West:North}`
+@unlock_descr_utilities = `min()`, `max()`, `abs()` ve `random()` fonksiyonlarını açar.
+
+`random_index = random() * len(list) // 1`
+@unlock_descr_cactus = Kaktüs!
+
+`plant(Entities.Cactus)`
+@unlock_descr_dinosaurs = Görkemli kadim yaratıklar.
+@unlock_descr_simulation = Daha hızlı ve tekrarlanabilir koşullarda test edin.
+
+`run_time = simulate(filename, sim_unlocks, sim_items, sim_globals, seed, speedup)`
+@unlock_descr_timing = Zamanla ilgili!
+
+`passed_time = get_time()`
+@unlock_descr_import = Diğer dosyalardan şeyler içe aktarın.
+
+`import other_file
+other_file.function()`
+@unlock_descr_megafarm = Daha fazla drone!
+
+`spawn_drone(task)`
+@multi_unlock_descr_expand = Çiftliği genişletir. Bu aynı zamanda çiftliği temizler.
+@multi_unlock_descr_carrots = Havuçların verimini ve maliyetini artırır.
+@multi_unlock_descr_trees = Çalıların ve ağaçların verimini artırır.
+@multi_unlock_descr_pumpkins = Kabakların verimini ve maliyetini artırır.
+@multi_unlock_descr_mazes = Hazine sandıklarındaki altını ve bir labirent oluşturmak için gereken Weird Substance miktarını artırır.
+@multi_unlock_descr_sunflowers = Ayçiçeklerinden alınan gücü artırır.
+@multi_unlock_descr_cactus = Kaktüsün verimini ve maliyetini artırır.
+@multi_unlock_descr_dinosaur = Dinozorların verimini ve maliyetini artırır.
+@multi_unlock_descr_polyculture = Polikültürün verim çarpanını artırır.
+@multi_unlock_descr_watering = Daha fazla su alırsınız.
+@multi_unlock_descr_fertilizer = Daha fazla gübre alırsınız.
+@multi_unlock_descr_megafarm = Drone sayısını daha da artırır.
+@auto_unlock = Otomatik Kilit Açma
+@cactus = Kaktüs
+@carrots = Havuçlar
+@costs = Maliyetler
+@debug = Debug
+@debug_2 = Debug_2
+@dictionaries = Sözlükler
+@dinosaurs = Dinozorlar
+@expand = Genişletme
+@expand_2 = Genişletme 2
+@fertilizer = Gübre
+@functions = Fonksiyonlar
+@grass = Çim
+@hats = Şapkalar
+@import = Import
+@leaderboard = Lider Tablosu
+@lists = Listeler
+@loops = Döngüler
+@mazes = Labirentler
+@megafarm = Mega Çiftlik
+@operators = Operatörler
+@plant = Ekim
+@polyculture = Polikültür
+@pumpkins = Kabaklar
+@senses = Duyular
+@simulation = Simülasyon
+@speed = Hız
+@sunflowers = Ayçiçekleri
+@timing = Zamanlama
+@trees = Ağaçlar
+@the_farmers_remains = ?
+@top_hat = Silindir Şapka
+@utilities = Yardımcılar
+@variables = Değişkenler
+@watering = Sulama

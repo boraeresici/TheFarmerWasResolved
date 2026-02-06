@@ -1,0 +1,18 @@
+@word_number = sayı
+@word_direction = yön
+@run_cancelled = Koşu Başarısız
+@average_text = {0} Koşu Tamamlandı ({2:F1}%)
+{1}
+@average_text2 = {0} Koşu Tamamlandı
+{1}
+@unlocked_in = Daha fazla ilgili bilgi için bakın: [{0}]({1})
+@table_of_contents_section_general_info = Genel Bilgi
+@table_of_contents_section_programming = Programlama
+@table_of_contents_section_unlocks = Kilitler
+@table_of_contents_section_builtins = Yerleşik Fonksiyonlar
+@table_of_contents_section_items = Öğeler
+@table_of_contents_section_entities = Varlıklar
+@table_of_contents_section_grounds = Zeminler
+@new_hat_unlocked = ## Yeni Şapka Açıldı
+`change_hat(`{0}`)`
+@right_click_for_more_info = -- daha fazla bilgi için sağ tık --

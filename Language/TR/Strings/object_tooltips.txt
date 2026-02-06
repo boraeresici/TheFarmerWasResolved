@@ -1,0 +1,25 @@
+@plant_tooltip_template = {0}
+
+Temel büyüme süresi {1} ile {2} saniye arasında.
+{3} üzerinde büyüyebilir.
+@object_tooltip_template_cost = ### Ekim Maliyeti {{{{itemblock cost object {0}}}}}
+@object_descr_apple = Görünüşe göre dinozorlar onları seviyor.
+@object_descr_grass = Çayırda otomatik büyür. `Items.Hay` elde etmek için hasat edin.
+@object_descr_bush = `Items.Wood` düşüren küçük bir çalı.
+@object_descr_tree = Ağaçlar çalılardan daha fazla odun verir. Yanlarında başka ağaçlar büyürse daha uzun sürede büyürler.
+@object_descr_carrot = Havuçlar!
+@object_descr_pumpkin = Kabaklar, yanlarında diğer tam büyümüş kabaklar olduğunda birlikte büyür. Her 5 kabaktan yaklaşık 1'i büyürken ölür.
+@object_descr_dead_pumpkin = Her beş kabaktan biri büyürken ölür ve geride ölü bir kabak bırakır. Ölü kabaklar işe yaramaz ve yerlerine yeni bir şey ekildiğinde kaybolur.
+@object_descr_sunflower = Ayçiçekleri güneşten güç toplar. Hasat etmek size `Items.Power` verir.
+En fazla yaprağa sahip bir ayçiçeğini hasat ederseniz bonus güç alırsınız.
+@object_descr_cactus = Kaktüsler 10 farklı boyutta gelir. Hasat edildiğinde, "sıralı" olan bitişik kaktüsler de hasat edilir.
+@object_descr_hedge = Labirentin bir parçası.
+@object_descr_treasure = Gizlendiği labirentin kenar uzunluğu kadar altın içeren bir hazine. Bir bitki gibi hasat edilebilir.
+@object_descr_dinosaur = Dinozor şapkasının kuyruğundan bir parça.
+@object_descr_grassland = Varsayılan zemin. Üzerinde çim otomatik olarak büyür.
+@object_descr_soil = `till()` çağırmak zemini toprağa çevirir. `till()` tekrar çağrılırsa zemini tekrar çayır yapar.
+@runtime_entity_tooltip = Hasat edildiğinde verir:
+{{itemblock tooltip}}
+@runtime_growable_tooltip = Toplam büyüme süresi: {0} saniye
+Büyüdü {1}%
+@runtime_ground_tooltip = Su seviyesi: {0}

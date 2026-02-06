@@ -1,0 +1,14 @@
+@warning_not_enough_items_to_trade = {0} satın alınmaya çalışıldı ama gerekli kaynaklar yoktu.
+@warning_no_space_to_plant = {0} ekilmeye çalışıldı ama orada zaten bir şey vardı.
+@warning_cant_plant_on_ground = {0}, {1} üzerine ekilemez.
+@warning_missing_seed = {0} ekmek için gereken öğeler yoktu.
+@warning_no_item_to_use = {0} kullanılmaya çalışıldı ama yeterli miktarda yoktu.
+@warning_failed_swap_wrap = Çiftlik sınırının üzerinden swap yapılmaya çalışıldı. Buna izin verilmez.
+@warning_failed_swap_unswappable = Değiştirilemeyen {0} swap edilmeye çalışıldı.
+@warning_weird_substance_not_divisible = Labirenti oluşturmak için gereken tam sayıda Weird Substance kullanılmadı. Labirent yükseltildikçe gereken Weird Substance miktarının arttığını unutmayın.
+
+Tam boy bir labirent oluşturmak için:
+`plant(Entities.Bush)
+substance = get_world_size() * 2**(num_unlocked(Unlocks.Mazes) - 1)
+use_item(Items.Weird_Substance, substance)`
+@warning_recursive_simulation = Simülasyonlar ve lider tablo koşuları, başka simülasyonlar ve lider tablo koşuları içinden başlatılamaz.
