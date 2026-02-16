@@ -1,4 +1,12 @@
 flowchart TD
+    S0["sim_runner main"] --> S1{"Unlocks.Simulation"}
+    S1 -- "Yes" --> S2["Run benchmark seeds and summarize avg best worst"]
+    S1 -- "No" --> S3["Skip benchmark with note"]
+    S2 --> S4{"Unlocks.Import"}
+    S3 --> S4
+    S4 -- "Yes" --> A["Switch to main file"]
+    S4 -- "No" --> A
+
     A["Start main.py"] --> B["grid.run_forever"]
     B --> C["state loop_count increment"]
     C --> D{"Unlocks.Timing"}
@@ -17,8 +25,11 @@ flowchart TD
 
     L --> HR{"Hat Rotation check"}
     HR -- "Enabled and due" --> HR1["change_hat"]
-    HR -- "Skip" --> M{"Pumpkin Enabled"}
-    HR1 --> M
+    HR -- "Skip" --> ST{"Status output due"}
+    HR1 --> ST
+    ST -- "Yes" --> ST1["print mode score target focus missing"]
+    ST -- "No" --> M{"Pumpkin Enabled"}
+    ST1 --> M
     M -- "Yes" --> N["pumpkin.handle_pumpkin_tile"]
     M -- "No" --> O["economy.decide_base_crop"]
     N --> P["Tile done"]

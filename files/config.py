@@ -1,4 +1,4 @@
-__version__ = "0.6.23"
+__version__ = "0.6.24"
 
 # Hard economy goal.
 WOOD_FOR_WATER_BOOST = 3200
@@ -33,6 +33,10 @@ ENABLE_LOCKED_MODULE = True
 LOCKED_REQUIRE_COSTS_UNLOCK = True
 LOCKED_PRIORITY_BONUS = 260
 LOCKED_GOLD_PRIORITY_BONUS = 320
+
+# Runtime status output policy.
+ENABLE_STATUS_OUTPUT = True
+STATUS_OUTPUT_EVERY_LOOPS = 10
 
 # Polyculture policy.
 ENABLE_POLYCULTURE_MODE = True

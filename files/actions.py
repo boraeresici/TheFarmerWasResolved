@@ -1,7 +1,8 @@
-__version__ = "0.5.9"
+__version__ = "0.5.10"
 
 import config
 import economy
+import locked
 import pumpkin
 import state
 
@@ -88,6 +89,41 @@ def _apply_fertilizer_if_enabled():
 		use_item(Items.Fertilizer)
 
 
+def _maybe_print_status():
+	if not config.ENABLE_STATUS_OUTPUT:
+		return
+	if state.current_x != 0 or state.current_y != 0:
+		return
+	if config.STATUS_OUTPUT_EVERY_LOOPS <= 0:
+		return
+	if state.loop_count % config.STATUS_OUTPUT_EVERY_LOOPS != 0:
+		return
+
+	target = locked.target_unlock_name()
+	focus = locked.focus_item_name()
+	missing = locked.focus_missing_amount()
+	if num_unlocked(Unlocks.Timing) > 0:
+		quick_print(
+			"[status]",
+			"loop=", state.loop_count,
+			"mode=", state.current_mode,
+			"score=", state.current_mode_score,
+			"target=", target,
+			"focus=", focus,
+			"missing=", missing,
+		)
+		return
+	print(
+		"[status]",
+		"loop=", state.loop_count,
+		"mode=", state.current_mode,
+		"score=", state.current_mode_score,
+		"target=", target,
+		"focus=", focus,
+		"missing=", missing,
+	)
+
+
 def _manage_base_tile(world_size):
 	x = state.current_x
 	y = state.current_y
@@ -125,6 +161,7 @@ def _manage_base_tile(world_size):
 def handle_tile(world_size):
 	# Required function signature: grid calls handle_tile(world_size).
 	_maybe_rotate_hat()
+	_maybe_print_status()
 	pumpkin_mode = economy.pumpkin_enabled(world_size)
 	if pumpkin_mode and pumpkin.handle_pumpkin_tile(world_size):
 		return
