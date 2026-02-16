@@ -1,0 +1,77 @@
+flowchart TD
+    A["Start main.py"] --> B["grid.run_forever"]
+    B --> C["state loop_count increment"]
+    C --> D{"Unlocks.Timing"}
+    D -- "Yes" --> E["state game_time from get_time"]
+    D -- "No" --> F["state game_time reset"]
+    E --> G["run_once"]
+    F --> G
+
+    G --> H{"Expand level"}
+    H -- "0" --> I["Single Tile Mode"]
+    H -- "1" --> J["Line Mode"]
+    H -- ">=2" --> K["Square Traversal"]
+    I --> L["actions.handle_tile"]
+    J --> L
+    K --> L
+
+    L --> HR{"Hat Rotation check"}
+    HR -- "Enabled and due" --> HR1["change_hat"]
+    HR -- "Skip" --> M{"Pumpkin Enabled"}
+    HR1 --> M
+    M -- "Yes" --> N["pumpkin.handle_pumpkin_tile"]
+    M -- "No" --> O["economy.decide_base_crop"]
+    N --> P["Tile done"]
+    O --> Q["Base crop action"]
+    Q --> P
+
+    subgraph SG1["Scheduler Core"]
+        O --> R["Refresh loop snapshot"]
+        R --> R0{"Priority scheduler enabled"}
+        R0 -- "No" --> R1["Legacy if-order rules"]
+        R0 -- "Yes" --> R2["Collect candidate modes with scores"]
+        R2 --> R2A["Apply locked-goal score bonuses"]
+        R2 --> R3["Best score selection"]
+        R3 --> R4{"Mode lock window active"}
+        R4 -- "Yes" --> R5["Keep current mode if still valid"]
+        R4 -- "No" --> R6["Apply best mode"]
+        R5 --> R7["Map mode to entity"]
+        R6 --> R7["Map mode to entity"]
+    end
+
+    subgraph SG2["Locked Planner"]
+        L1["Target route: Dinosaurs -> Mazes -> Megafarm"]
+        L2["Read get_cost(target unlock)"]
+        L3["Compute missing items"]
+        L4["Pick focus item and missing amount"]
+        L5["Expose state locked_target and locked_focus"]
+        L1 --> L2 --> L3 --> L4 --> L5
+    end
+
+    L5 --> R2A
+
+    subgraph SG3["Hysteresis Layers"]
+        H1["Hay and Carrot recovery hysteresis"]
+        H2["Pumpkin enable and disable thresholds"]
+        H3["Sunflower power hysteresis"]
+        H4["Cactus stock hysteresis"]
+    end
+
+    subgraph SG4["Gating and Prep"]
+        Z1["Maze Prep Mode"]
+        Z1 --> Z2["Weird Substance target 1000"]
+        Z1 --> Z3["Disable Pumpkin and Cactus by config"]
+        Z1 --> Z4["Control fertilizer spending by config"]
+    end
+
+    subgraph SG5["Time Windows"]
+        Tm1["Early Game Phase"]
+        Tm1 --> Tm2["Optional Sunflower disable"]
+        Tm1 --> Tm3["Optional Pumpkin disable"]
+        Tm4["Cycle Windows"]
+        Tm4 --> Tm5["Sunflower cycle active window"]
+        Tm4 --> Tm6["Pumpkin cycle active window"]
+        Tm4 --> Tm7["Cactus cycle active window"]
+    end
+
+    P --> B

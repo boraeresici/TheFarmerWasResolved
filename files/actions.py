@@ -1,9 +1,51 @@
-__version__ = "0.5.4"
+__version__ = "0.5.9"
 
 import config
 import economy
 import pumpkin
 import state
+
+
+def _maybe_rotate_hat():
+	if not config.ENABLE_HAT_ROTATION:
+		return
+	if config.HAT_REQUIRE_UNLOCK and num_unlocked(Unlocks.Hats) <= 0:
+		return
+	# Avoid repeated hat changes during the same loop.
+	if state.last_hat_change_loop == state.loop_count:
+		return
+
+	due = False
+	if config.HAT_CHANGE_ON_FIRST_LOOP and state.loop_count == 1:
+		due = True
+	elif config.HAT_CHANGE_EVERY_LOOPS > 0 and state.loop_count % config.HAT_CHANGE_EVERY_LOOPS == 0:
+		due = True
+	if not due:
+		return
+
+	hats = [Hats.Gray_Hat, Hats.Purple_Hat, Hats.Green_Hat, Hats.Brown_Hat]
+	index = 0
+
+	if config.USE_RANDOM_HATS and num_unlocked(Unlocks.Utilities) > 0:
+		r = random()
+		if r < 0.25:
+			index = 0
+		elif r < 0.50:
+			index = 1
+		elif r < 0.75:
+			index = 2
+		else:
+			index = 3
+	else:
+		index = (state.loop_count // config.HAT_CHANGE_EVERY_LOOPS) % len(hats)
+
+	# Reduce chance of "no visible change" from selecting the same hat.
+	if index == state.last_hat_index:
+		index = (index + 1) % len(hats)
+
+	change_hat(hats[index])
+	state.last_hat_index = index
+	state.last_hat_change_loop = state.loop_count
 
 
 def _ensure_ground_for(entity_type):
@@ -34,11 +76,13 @@ def _apply_generic_watering(in_pumpkin_mode):
 
 
 def _apply_fertilizer_if_enabled():
-	if not config.ENABLE_FERTILIZER:
+	if not economy.should_spend_fertilizer():
 		return
 	if num_unlocked(Unlocks.Fertilizer) <= 0:
 		return
-	if num_items(Items.Fertilizer) < config.MIN_FERTILIZER_STOCK:
+	if num_items(Items.Fertilizer) <= 0:
+		return
+	if not economy.maze_prep_active() and num_items(Items.Fertilizer) < config.MIN_FERTILIZER_STOCK:
 		return
 	if not can_harvest():
 		use_item(Items.Fertilizer)
@@ -80,6 +124,7 @@ def _manage_base_tile(world_size):
 
 def handle_tile(world_size):
 	# Required function signature: grid calls handle_tile(world_size).
+	_maybe_rotate_hat()
 	pumpkin_mode = economy.pumpkin_enabled(world_size)
 	if pumpkin_mode and pumpkin.handle_pumpkin_tile(world_size):
 		return

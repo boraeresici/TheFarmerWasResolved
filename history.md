@@ -1,5 +1,16 @@
 # The Farmer Was Replaced — Project Handover (2026-02-16) amass oyunun doğru mantıkta ideal hedefleri adım adım aktif edip geliştirilmesi
 
+## Update Log (2026-02-16 latest)
+- Added buffer hysteresis for `Hay` and `Carrot` recovery modes.
+- Added loop resource snapshot cache to stabilize decisions inside a single traversal cycle.
+- Added hysteresis for `Pumpkin`, `Sunflower`, `Cactus` mode activation/deactivation.
+- Added priority scheduler for base-crop strategy selection (`score` based).
+- Added scheduler mode lock to keep selected mode for minimum loops and reduce mode thrashing.
+- Added strategy state tracking in `state.py`: current mode, score, last mode change loop.
+- Added `locked.py` module with unlock route planning: `Dinosaurs -> Mazes -> Megafarm`.
+- Added locked-goal cost analysis with focus item detection from `get_cost(unlock)`.
+- Added dynamic mode score bonus from locked planner into scheduler candidates.
+
 ## Current Goal
 Build a self-balancing farm controller that:
 - Follows HARD goal: keep Wood >= 3200 (required for water progress / upgrades)
@@ -27,11 +38,12 @@ Build a self-balancing farm controller that:
 
 ## Version Map (latest recommended)
 - main.py __version__ = "0.3.0"
-- state.py __version__ = "0.3.2"
-- config.py __version__ = "0.6.10"
-- economy.py __version__ = "0.7.15"
+- state.py __version__ = "0.3.9"
+- config.py __version__ = "0.6.23"
+- economy.py __version__ = "0.7.27"
+- locked.py __version__ = "0.1.0"
 - pumpkin.py __version__ = "0.4.6"
-- actions.py __version__ = "0.5.4"
+- actions.py __version__ = "0.5.9"
 - grid.py __version__ = "0.3.4"
 
 ## Key Design
@@ -46,6 +58,9 @@ Build a self-balancing farm controller that:
 - Utilities-aware random polyculture mode is enabled when `Unlocks.Utilities` is available.
 - Sunflower/Pumpkin can run with time-window duty cycles.
 - Cactus mode is enabled with economy + stock + time-window gating.
+- Dinosaur prep raises cactus stock targets automatically.
+- Maze prep mode targets Weird Substance and manages fertilizer spending via config.
+- Hat rotation is enabled to reduce repetitive visuals.
 
 ### Pumpkin Area
 - Square is centered and adaptive: size is computed by economy `pumpkin_square_size(world_size)`.
@@ -67,11 +82,12 @@ This snapshot reflects the latest synced state after overwrite recovery.
 
 ### File Versions
 - `files/main.py` -> `__version__ = "0.3.0"`
-- `files/state.py` -> `__version__ = "0.3.2"`
-- `files/config.py` -> `__version__ = "0.6.10"`
-- `files/economy.py` -> `__version__ = "0.7.15"`
+- `files/state.py` -> `__version__ = "0.3.9"`
+- `files/config.py` -> `__version__ = "0.6.23"`
+- `files/economy.py` -> `__version__ = "0.7.27"`
+- `files/locked.py` -> `__version__ = "0.1.0"`
 - `files/pumpkin.py` -> `__version__ = "0.4.6"`
-- `files/actions.py` -> `__version__ = "0.5.4"`
+- `files/actions.py` -> `__version__ = "0.5.9"`
 - `files/grid.py` -> `__version__ = "0.3.4"`
 
 ### Required Contracts
@@ -94,6 +110,15 @@ This snapshot reflects the latest synced state after overwrite recovery.
 - If Utilities is unlocked, random polyculture weighting can be used.
 - Time windows can gate Sunflower/Pumpkin activity within each cycle.
 - Cactus uses `Unlocks.Cactus` + `Entities.Cactus` with configurable stock/headroom/time thresholds.
+- If Dinosaurs is unlocked, cactus target stock switches to `DINOSAUR_CACTUS_BUFFER`.
+- If Mazes is not unlocked, prep target uses `MAZE_PREP_WEIRD_SUBSTANCE_TARGET`.
+- Maze prep can temporarily disable Pumpkin/Cactus and fertilizer spending.
+- Hat rotation can run in deterministic or random mode (`USE_RANDOM_HATS`).
+- Scheduler can select best production mode with score priorities.
+- Scheduler can lock current mode for a minimum loop window.
+- Decision engine uses per-loop resource snapshot cache.
+- Hysteresis margins are used to prevent rapid mode toggling.
+- Locked planner can route unlock targets and apply item-focused strategy bonuses.
 
 ### Hard Rules
 - Keep `Wood >= 3200` as hard floor.
