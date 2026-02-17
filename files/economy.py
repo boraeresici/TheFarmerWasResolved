@@ -1,4 +1,4 @@
-__version__ = "0.7.27"
+__version__ = "0.7.28"
 
 import config
 import locked
@@ -122,6 +122,9 @@ def carrot_recovery_active(carrots):
 
 
 def target_cactus_buffer():
+	locked_target = locked.required_amount(Items.Cactus)
+	if locked_target > 0:
+		return locked_target
 	if has_unlock(Unlocks.Dinosaurs):
 		return config.DINOSAUR_CACTUS_BUFFER
 	return config.MIN_CACTUS_BUFFER
@@ -221,7 +224,7 @@ def should_use_polyculture(wood, carrots):
 
 
 def should_use_cactus(wood, hay, carrots):
-	if maze_prep_active() and config.MAZE_PREP_DISABLE_CACTUS:
+	if maze_prep_active() and config.MAZE_PREP_DISABLE_CACTUS and not locked.should_force_cactus_for_goal():
 		state.cactus_mode_active = False
 		return False
 	if not config.ENABLE_CACTUS_MODE:

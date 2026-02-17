@@ -1,6 +1,9 @@
 # The Farmer Was Replaced — Project Handover (2026-02-16) amass oyunun doğru mantıkta ideal hedefleri adım adım aktif edip geliştirilmesi
 
 ## Update Log (2026-02-16 latest)
+- Added maze runtime module with solver and optional return-to-origin behavior.
+- Added locked-goal cactus override so maze-prep cactus disable cannot block required cactus goals.
+- Extended runtime status output with cactus target/missing fields.
 - Added `sim_runner.py` for seed-based simulation benchmarking and summary metrics.
 - Added simulation unlock guard: benchmark skips cleanly when `Unlocks.Simulation` is locked.
 - Added post-benchmark live handoff flow (switch to `main` when import is available).
@@ -43,12 +46,13 @@ Build a self-balancing farm controller that:
 ## Version Map (latest recommended)
 - main.py __version__ = "0.3.0"
 - state.py __version__ = "0.3.9"
-- config.py __version__ = "0.6.24"
-- economy.py __version__ = "0.7.27"
-- locked.py __version__ = "0.1.0"
+- config.py __version__ = "0.6.26"
+- economy.py __version__ = "0.7.28"
+- locked.py __version__ = "0.1.1"
+- maze.py __version__ = "0.2.0"
 - sim_runner.py __version__ = "0.1.3"
 - pumpkin.py __version__ = "0.4.6"
-- actions.py __version__ = "0.5.10"
+- actions.py __version__ = "0.5.12"
 - grid.py __version__ = "0.3.4"
 
 ## Key Design
@@ -88,12 +92,13 @@ This snapshot reflects the latest synced state after overwrite recovery.
 ### File Versions
 - `files/main.py` -> `__version__ = "0.3.0"`
 - `files/state.py` -> `__version__ = "0.3.9"`
-- `files/config.py` -> `__version__ = "0.6.24"`
-- `files/economy.py` -> `__version__ = "0.7.27"`
-- `files/locked.py` -> `__version__ = "0.1.0"`
+- `files/config.py` -> `__version__ = "0.6.26"`
+- `files/economy.py` -> `__version__ = "0.7.28"`
+- `files/locked.py` -> `__version__ = "0.1.1"`
+- `files/maze.py` -> `__version__ = "0.2.0"`
 - `files/sim_runner.py` -> `__version__ = "0.1.3"`
 - `files/pumpkin.py` -> `__version__ = "0.4.6"`
-- `files/actions.py` -> `__version__ = "0.5.10"`
+- `files/actions.py` -> `__version__ = "0.5.12"`
 - `files/grid.py` -> `__version__ = "0.3.4"`
 
 ### Required Contracts
@@ -125,8 +130,9 @@ This snapshot reflects the latest synced state after overwrite recovery.
 - Decision engine uses per-loop resource snapshot cache.
 - Hysteresis margins are used to prevent rapid mode toggling.
 - Locked planner can route unlock targets and apply item-focused strategy bonuses.
-- Runtime status print can expose current mode/score and locked focus values.
+- Runtime status print can expose current mode/score, locked focus, and cactus target/missing values.
 - Simulation benchmark runner can compare strategy performance across seeds.
+- Maze runtime module can auto-create/solve maze and harvest treasure.
 
 ### Hard Rules
 - Keep `Wood >= 3200` as hard floor.

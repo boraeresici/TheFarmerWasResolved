@@ -1,4 +1,4 @@
-__version__ = "0.1.0"
+__version__ = "0.1.1"
 
 import config
 import state
@@ -137,6 +137,14 @@ def _refresh():
 	_sync_state()
 
 
+def _current_cost():
+	if _target_unlock == None:
+		return None
+	if not _cost_available():
+		return None
+	return get_cost(_target_unlock)
+
+
 def target_unlock_name():
 	_refresh()
 	return state.locked_target_name
@@ -150,6 +158,30 @@ def focus_item_name():
 def focus_missing_amount():
 	_refresh()
 	return state.locked_missing_amount
+
+
+def required_amount(item_type):
+	_refresh()
+	cost = _current_cost()
+	if cost == None:
+		return 0
+	if item_type in cost:
+		return cost[item_type]
+	return 0
+
+
+def missing_amount(item_type):
+	required = required_amount(item_type)
+	if required <= 0:
+		return 0
+	have = num_items(item_type)
+	if have >= required:
+		return 0
+	return required - have
+
+
+def should_force_cactus_for_goal():
+	return missing_amount(Items.Cactus) > 0
 
 
 def should_push_bush_for_goal():

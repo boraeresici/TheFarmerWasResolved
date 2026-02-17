@@ -22,18 +22,22 @@ Akış diyagramı:
 Güncel sürümler:
 - `main.py` `0.3.0`
 - `state.py` `0.3.9`
-- `config.py` `0.6.24`
-- `economy.py` `0.7.27`
-- `locked.py` `0.1.0`
+- `config.py` `0.6.26`
+- `economy.py` `0.7.28`
+- `locked.py` `0.1.1`
+- `maze.py` `0.2.0`
 - `sim_runner.py` `0.1.3`
 - `pumpkin.py` `0.4.6`
-- `actions.py` `0.5.10`
+- `actions.py` `0.5.12`
 - `grid.py` `0.3.4`
 
 Son güncelleme notu:
+- `Maze Program`: `Mazes` unlock sonrası otomatik maze akışına geçer, hedge/treasure durumunu yönetir.
+- `Maze Solver`: wall-follow ile treasure arar, hasat eder ve opsiyonel olarak origin'e döner.
+- `Maze Amount`: substance amount `<= 0` ise full-field formülüyle otomatik hesaplanabilir.
 - `Simulation Runner`: `sim_runner.py` ile seed bazlı benchmark çalıştırılır; simulation açık değilse güvenli şekilde skip edilir.
 - `Simulation -> Live`: benchmark sonrası otomatik live `main` akışına geçiş senaryosu vardır (import unlock varsa).
-- `Runtime Status Output`: loop başında periyodik olarak mode/score/locked-target/focus/missing bilgisi yazdırılır.
+- `Runtime Status Output`: loop başında periyodik olarak mode/score/locked-target/focus/missing + `c_target/c_missing` bilgisi yazdırılır.
 - `Locked Module`: hedef unlock sırası (`Dinosaurs -> Mazes -> Megafarm`) için maliyet analizi yapar ve eksik item odaklar.
 - `Locked Bonus`: scheduler skorlarına hedefe göre dinamik bonus ekler (`LOCKED_PRIORITY_BONUS`).
 - `Locked State`: aktif hedef, odak item ve eksik miktar state içinde tutulur.

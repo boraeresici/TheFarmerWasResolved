@@ -1,8 +1,9 @@
-__version__ = "0.5.10"
+__version__ = "0.5.12"
 
 import config
 import economy
 import locked
+import maze
 import pumpkin
 import state
 
@@ -102,6 +103,8 @@ def _maybe_print_status():
 	target = locked.target_unlock_name()
 	focus = locked.focus_item_name()
 	missing = locked.focus_missing_amount()
+	cactus_target = locked.required_amount(Items.Cactus)
+	cactus_missing = locked.missing_amount(Items.Cactus)
 	if num_unlocked(Unlocks.Timing) > 0:
 		quick_print(
 			"[status]",
@@ -111,6 +114,8 @@ def _maybe_print_status():
 			"target=", target,
 			"focus=", focus,
 			"missing=", missing,
+			"c_target=", cactus_target,
+			"c_missing=", cactus_missing,
 		)
 		return
 	print(
@@ -121,6 +126,8 @@ def _maybe_print_status():
 		"target=", target,
 		"focus=", focus,
 		"missing=", missing,
+		"c_target=", cactus_target,
+		"c_missing=", cactus_missing,
 	)
 
 
@@ -162,6 +169,9 @@ def handle_tile(world_size):
 	# Required function signature: grid calls handle_tile(world_size).
 	_maybe_rotate_hat()
 	_maybe_print_status()
+	maze_mode = maze.maze_enabled(world_size)
+	if maze_mode and maze.handle_maze_tile(world_size):
+		return
 	pumpkin_mode = economy.pumpkin_enabled(world_size)
 	if pumpkin_mode and pumpkin.handle_pumpkin_tile(world_size):
 		return

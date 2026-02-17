@@ -27,9 +27,12 @@ flowchart TD
     HR -- "Enabled and due" --> HR1["change_hat"]
     HR -- "Skip" --> ST{"Status output due"}
     HR1 --> ST
-    ST -- "Yes" --> ST1["print mode score target focus missing"]
-    ST -- "No" --> M{"Pumpkin Enabled"}
-    ST1 --> M
+    ST -- "Yes" --> ST1["print mode score target focus missing c_target c_missing"]
+    ST -- "No" --> MZ{"Maze Program Enabled"}
+    ST1 --> MZ
+    MZ -- "Yes" --> MZ1["maze.handle_maze_tile"]
+    MZ -- "No" --> M{"Pumpkin Enabled"}
+    MZ1 --> P
     M -- "Yes" --> N["pumpkin.handle_pumpkin_tile"]
     M -- "No" --> O["economy.decide_base_crop"]
     N --> P["Tile done"]
